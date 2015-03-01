@@ -1,0 +1,96 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #222;
+	color: #888;
+	margin: 25px;
+	font-family: 'Raleway', sans-serif;  
+    font-weight: lighter;
+    min-width: 400px;
+}
+
+.clear {
+	clear: both;
+}
+
+h1 {
+	color: #44acae;
+	float: left;
+    font-weight: lighter;  
+
+}
+
+#flavor {
+  margin-top: 15px;
+}
+
+/* LEGEND */
+#legend {
+	list-style: none;
+	margin-left: 50px;
+	float: left;
+}
+
+.legend-item {
+	margin-bottom: 3px;
+}
+
+.legend-item span {
+	vertical-align: middle;
+}
+
+.legend-item .legend {
+	display: inline-block;
+	height: 1em;
+	width: 1em;
+}
+
+#legend-usage {
+    background: #44acae;
+}
+
+#legend-sleep {
+    background: #666;
+}
+
+#visualization {
+	width: 90%;
+	margin: 25px auto;
+}
+
+/* AXIS */
+.axis text {
+	font-size: 10px;
+	stroke: #ccc;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #ccc;
+  	shape-rendering: crispEdges;
+}
+
+.x-axis path {
+	stroke: none;
+}
+
+.y-axis text {
+	dominant-baseline: central;
+}
+
+/* LINES */
+.usage line {
+	fill: none;
+    stroke-width: 5px;
+    stroke: #44acae;
+}
+
+.sleep line {
+	fill: none;
+    stroke-width: 5px;
+    stroke: #666;
+}
+

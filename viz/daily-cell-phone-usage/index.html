@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<title>Daily Phone Usage</title>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>	
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<div id="header">
+			<h1>Daily Phone Usage</h1>
+			<ul id="legend">
+				<li class="legend-item"><span id="legend-usage" class="legend"> </span> <span>Usage</span></li>
+				<li class="legend-item"><span id="legend-sleep" class="legend"> </span> <span>Sleep</span></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<p id="flavor">I use my phone right before heading to bed and almost immediately after I wake up. By tracking when the screen on my phone turns on and off, I can approximate my sleep schedule. Aside from showing just how much I use my phone (scary!), this visualization also shows how irregular my sleep schedule is.</p>
+		<div id="visualization"></div>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+		<script src="scripts.js"></script>
+	</body>
+</html>
