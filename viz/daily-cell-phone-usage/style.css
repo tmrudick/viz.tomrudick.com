@@ -94,3 +94,6 @@ h1 {
     stroke: #666;
 }
 
+a, a:link, a:visited {
+  color: #44acae;
+}
