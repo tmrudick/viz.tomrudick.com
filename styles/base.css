@@ -1,0 +1,28 @@
+@import url(http://fonts.googleapis.com/css?family=Merriweather+Sans:400,800);
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Merriweather Sans', sans-serif;
+    font-weight: 400;
+}
+
+h1, p, svg {
+    margin: 15px 15px;
+    font-weight: 400;
+}
+
+ol {
+    margin-left: 50px;
+}
+
+ol li {
+    margin-bottom: 10px;
+}
+
+a, a.link, a.visited, a.hover {
+    color: #000;
+}

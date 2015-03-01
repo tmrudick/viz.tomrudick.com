@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+    <head>
+        <title>viz.tomrudick.com : Checkins by Day and Hour</title>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.3/d3.min.js"></script>
+        <link href="/styles/base.css" rel="stylesheet" type="text/css">
+        <style>
+            .hour-title, .day-title {
+                font-size: 8pt;
+                color: #666;
+                font-variant: small-caps;
+            }
+            svg {
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>foursquare checkins by day and hour</h1>
+        <div id="table"></div>
+        <p>By bucketing all of my Foursquare checkins by hour and day of week, you can get a good sense for when I am actually using Foursquare. By proxy, this might also be the time I am most likely to be out with friends. Apparently, I like to hang out on Sundays around 1pm. Brunch perhaps?</p>
+        <script>
+            // Map from (int) -> (string)
+            function indexToDay(d) {
+                switch (d) {
+                    case 0: return 'Sunday';
+                    case 1: return 'Monday';
+                    case 2: return 'Tuesday';
+                    case 3: return 'Wednesday';
+                    case 4: return 'Thursday';
+                    case 5: return 'Friday';
+                    case 6: return 'Saturday';
+                }
+            }
+
+            function twelveHour(d) {
+                var hour = Math.abs(d.hour - 12);
+
+                return hour;
+            }
+
+            var height = 220,
+                width = 700,
+                paddingTop = 25,
+                paddingLeft = 75,
+                blockSize = 20;
+
+            var svg = d3.select('#table').append('svg')
+                            .attr('height', height)
+                            .attr('width', width);
+
+            var color = d3.scale.linear().range(['gray', 'green', 'yellow', 'red']);
+
+            var x = d3.scale.linear().domain([0,23]).range([paddingLeft, width - paddingLeft]),
+                y = d3.scale.linear().domain([0, 7]).range([paddingTop, height - paddingTop]);
+
+            d3.json('data.json', function(err, data) {
+                // Find the data min/max
+                var max = d3.max(data, function(d) { return d.count; }),
+                    min = d3.min(data, function(d) { return d.count; });
+
+                // Set the color domain for each quarter
+                color.domain([min, (max - min) / 4, (max - min) / 4 * 3, max]);
+
+                // Draw the rectange blocks
+                svg.selectAll('rect')
+                    .data(data)
+                    .enter()
+                    .append('rect')
+                        .attr('x', function(d) { return x(d.hour); })
+                        .attr('y', function(d) { return y(d.day); })
+                        .attr('height', blockSize)
+                        .attr('width', blockSize)
+                        .attr('fill', function(d) { return color(d.count); });
+
+                // Hour axis
+                svg.selectAll('.hour-title')
+                    .data(x.ticks(24))
+                    .enter()
+                    .append('text')
+                        .attr('class', 'hour-title')
+                        .attr('x', x)
+                        .attr('y', 15)
+                        .attr('dx', 10)
+                        .attr('text-anchor', 'middle')
+                        .text(function(d) {
+                            // Transfer from 0-23 to 1-12 clock
+                            return Math.abs(d - 12) || 12;
+                        });
+
+                // Draw day axis
+                svg.selectAll('.day-title')
+                    .data(y.ticks(7))
+                    .enter().append('text')
+                        .attr('class', 'day-title')
+                        .attr('x', 5)
+                        .attr('y', y)
+                        .attr('dy', 15)
+                        .attr('width', 50)
+                        .text(function(d) { return indexToDay(d); });
+            });
+        </script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-5618496-9', 'tmrudick.github.io');
+            ga('send', 'pageview');
+        </script>
+    </body>
+</html>
